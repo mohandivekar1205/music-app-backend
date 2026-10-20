@@ -17,6 +17,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(409).body(new ErrorResponse("CONFLICT", ex.getMessage()));
     }
 
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidRequest(InvalidRequestException ex) {
+        return ResponseEntity.status(400).body(new ErrorResponse("INVALID_REQUEST", ex.getMessage()));
+    }
+
+    @ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorResponse> handleMaxUploadSize(org.springframework.web.multipart.MaxUploadSizeExceededException ex) {
+        return ResponseEntity.status(413).body(new ErrorResponse("FILE_TOO_LARGE", "Uploaded file exceeds maximum permitted size of 10MB"));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
         String message = ex.getBindingResult().getFieldErrors().stream()
