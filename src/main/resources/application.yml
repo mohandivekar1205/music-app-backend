@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:db.qeqxuimtdjwwnvuyykch.supabase.co}:${DB_PORT:5432}/${DB_NAME:postgres}?sslmode=require&currentSchema=music_app
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:MohanDivekar@125}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: music_app
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    schemas: music_app
+    create-schemas: true
+    baseline-on-migrate: true
+server:
+  port: 8080
+streaming-service:
+  base-url: ${STREAMING_SERVICE_URL:http://localhost:8081}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
